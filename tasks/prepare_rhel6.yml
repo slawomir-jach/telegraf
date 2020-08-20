@@ -1,0 +1,30 @@
+---
+- name: Check "{{ package_installed }}" installation status
+  command: yum list installed "{{ package_installed }}"
+  register: is_package_installed
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+  ignore_errors: yes
+
+- name: Install "{{ package_installed }}"
+  yum:
+    name: "{{ package_installed }}"
+    state: present
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+
+- name: copy pip installation script for RedHat6
+  copy:
+    src: "get-pip.py"
+    dest: /opt
+    mode: 0755
+    force: yes
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+
+
+- name: Install pip for RedHat6
+  command: python2.6 /opt/get-pip.py
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+
+- name: Install argparse for RedHat6
+  pip:
+    name: argparse
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"

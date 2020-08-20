@@ -5,3 +5,6 @@ venv/
 *deb
 *rpm
 playbooks/
+.idea/
+files/
+hosts

@@ -13,9 +13,43 @@
     state: latest
     update_cache: yes
   when: telegraf_install_url is not defined or telegraf_install_url == None
+  register: install_telegraf_result
 
 - name: Install Telegraf from URL [RHEL/CentOS]
   yum:
     name: "{{ telegraf_install_url }}"
     state: present
   when: telegraf_install_url is defined and telegraf_install_url != None
+  register: install_telegraf_result_url
+
+
+- name: Install python3 on RedHat family version 8
+  yum:
+    name: python3
+    state: present
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "8"
+
+- name: Install python3-libselinux on RedHat family version 8
+  yum:
+    name: python3-libselinux
+    state: present
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "8"
+
+
+- name: Creates directory for Python metrics script
+  file:
+    path: /opt/python_metrics
+    state: directory
+    mode: 0755
+  register: create_directory_python_metrics
+
+- name: copy python scripts for read and send metrics to prometheus
+  copy:
+    src: "{{ item }}"
+    dest: /opt/python_metrics
+    mode: 0755
+    owner: telegraf
+    group: telegraf
+    force: yes
+  with_items:
+    ['main.py', 'metricsClass.py', 'vars.py']

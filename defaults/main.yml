@@ -2,6 +2,14 @@
 # Channel of Telegraf to install
 telegraf_install_version: stable
 
+# Check installed packages
+package_installed: libselinux-python
+
+# Check machine ip address
+ip_address_machine: ansible_default_ipv4.address
+os_family: ansible_distribution_file_variety
+os_version: ansible_distribution_major_version
+
 # The user and group telegraf should run under (should be set to telegraf unless needed otherwise)
 telegraf_runas_user: telegraf
 telegraf_runas_group: telegraf
@@ -27,23 +35,6 @@ telegraf_quiet: "false"
 telegraf_hostname:
 telegraf_omit_hostname: "false"
 telegraf_install_url:
-
-telegraf_influxdb_urls:
-  - http://localhost:8086
-telegraf_influxdb_database: telegraf
-telegraf_influxdb_precision: s
-telegraf_influxdb_retention_policy: autogen
-telegraf_influxdb_write_consistency: any
-telegraf_influxdb_ssl_ca:
-telegraf_influxdb_ssl_cert:
-telegraf_influxdb_ssl_key:
-telegraf_influxdb_insecure_skip_verify:
-
-telegraf_influxdb_timeout: 5s
-telegraf_influxdb_username:
-telegraf_influxdb_password:
-telegraf_influxdb_user_agent:
-telegraf_influxdb_udp_payload:
 
 telegraf_plugins_base:
   - name: mem

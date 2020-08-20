@@ -1,4 +1,6 @@
 ---
+- include: prepare_rhel6.yml
+
 - include: install.yml
   tags: [telegraf, install]
 
@@ -6,5 +8,5 @@
   tags: [telegraf, configure]
 
 - include: start.yml
-  tags: [telegraf, start]
+  tags: [tselegraf, tart]
   when: telegraf_start_service
