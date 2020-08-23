@@ -16,16 +16,13 @@
 # Read metrics about memory usage
 [[inputs.mem]]
 
-# Read metrics about network interface usage
-#[[inputs.net]]
-  ## By default, telegraf gathers stats from any up interface (excluding loopback)
-  ## Setting interfaces will tell it to gather these explicit interfaces,
-  ## regardless of status.
-#  interfaces = ["en2"]
-
-
-
 [[inputs.exec]]
-  commands = ["python /opt/python_metrics/main.py --option1 vxmem"]
+
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+  commands = {{ command_rhel8 | to_json }}
+{% else %}
+  commands = {{ command_rhel | to_json }}
+{% endif %}
+
   timeout = "5s"
   data_format = "json"
