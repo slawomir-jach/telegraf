@@ -1,4 +1,0 @@
-TASK [Add InfluxData repository file [RHEL/CentOS]] ********************************************************************
-fatal: [172.16.68.128]: FAILED! => {"changed": false, "checksum": "58c95f987ce0a871c8ef91ca859b2c60851c036f", "msg":
-"Aborting, target uses selinux but python bindings (libselinux-python) aren't installed!"}
-ok: [centos@ec2-13-53-199-245.eu-north-1.compute.amazonaws.com]
