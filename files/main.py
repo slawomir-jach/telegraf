@@ -4,8 +4,8 @@ import os
 import json
 import argparse
 import subprocess
-from .vars import *
-from .metricsClass import *
+from vars import *
+from metricsClass import *
 
 parser = argparse.ArgumentParser()
 
@@ -23,15 +23,15 @@ parser.add_argument('--option9', help='description for option9')
 args = parser.parse_args()
 
 if args.option1:
-    print(Metrics.v3xml0(v3_xml0))
+    print(Metrics.loopadapt("_incoming"))
 
 
 if args.option2:
-    print(Metrics.v3xml0(v3_xml1))
+    print(Metrics.loopadapt("_outgoing"))
 
 
 if args.option3:
-    print(Metrics.v3xml('v3xmlBrowserNTB', 'v3xml0', 'kbmemusedv3xml0browser'))
+    print(Metrics.loopadapt("_bridge"))
 
 if args.option4:
     print(Metrics.v3xml('v3xmlBrowserNTB', 'v3xml1', 'kbmemusedv3xml1browser')) 
@@ -40,7 +40,7 @@ if args.option5:
     print(Metrics.v3xml('audioCapture.cfg', '', 'kbmemusedaudioCapture'))
 
 if args.option6:
-    print(Metrics.audioCap('audioCapture', ' ', 'perCPUaudioCapture', 'top'))
+    print(Metrics.v3xml('v3xmlBrowserNTB', 'v3xml0', 'kbmemusedv3xml0browser'))
 
 if args.option7:
     print(Metrics.v3xml0(v3_ccxml))
