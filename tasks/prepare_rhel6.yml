@@ -28,3 +28,8 @@
   pip:
     name: argparse
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+
+- name: Install psutil for RedHat6
+  pip:
+    name: psutil
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
