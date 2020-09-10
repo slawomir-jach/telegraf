@@ -6,8 +6,14 @@ telegraf_install_version: stable
 command_rhel: ["python /opt/python_metrics/main.py --option1 vxmem"]
 command_rhel8: ["python3 /opt/python_metrics/main.py --option1 vxmem"]
 
+#proxy url
+proxy: http://proxy-prod-scl.svc.meshcore.net:3128
+
 # Check installed packages
-package_installed: libselinux-python
+package_installed:
+  - libselinux-python
+  - gcc
+  - python-devel
 
 # Check machine ip address
 ip_address_machine: ansible_default_ipv4.address

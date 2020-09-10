@@ -4,18 +4,6 @@
   metric_version = 2
 
 
-# Read metrics about cpu usage
-[[inputs.cpu]]
-  ## Whether to report per-cpu stats or not
-  percpu = true
-  ## Whether to report total system cpu stats or not
-  totalcpu = true
-  ## If true, collect raw CPU time metrics.
-  collect_cpu_time = false
-
-# Read metrics about memory usage
-[[inputs.mem]]
-
 [[inputs.exec]]
 
 {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}

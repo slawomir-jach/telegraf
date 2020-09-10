@@ -25,11 +25,7 @@
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
 - name: Install argparse for RedHat6
-  pip:
-    name: argparse
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
-
-- name: Install psutil for RedHat6
-  pip:
-    name: psutil
+  pip: name=argparse
+  environment:
+    http_proxy: "{{ proxy }}"
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
