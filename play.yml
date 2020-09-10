@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: six
   become: yes
   vars_files:
     - defaults/main.yml

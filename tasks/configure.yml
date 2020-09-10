@@ -28,6 +28,8 @@
     replace: USER={{ telegraf_runas_user }}
   when: telegraf_runas_user != "telegraf" and telegraf_sysvinit_script.stat.exists
 
+
+
 - name: Modify group Telegraf should run as [sysvinit]
   replace:
     path: /etc/init.d/telegraf
@@ -35,11 +37,15 @@
     replace: GROUP={{ telegraf_runas_group }}
   when: telegraf_runas_group != "telegraf" and telegraf_sysvinit_script.stat.exists
 
+
+
 - name: Create systemd service directory [systemd]
   file:
     path: /etc/systemd/system/telegraf.service.d
     state: directory
   when: telegraf_runas_user != "telegraf" and not telegraf_sysvinit_script.stat.exists
+
+
 
 - name: Modify user Telegraf should run as [systemd]
   template:
@@ -47,6 +53,8 @@
     dest: /etc/systemd/system/telegraf.service.d/override.conf
   when: telegraf_runas_user != "telegraf" and not telegraf_sysvinit_script.stat.exists
   register: telegraf_unit_file_updated
+
+
 
 - name: Reload systemd configuration [systemd]
   systemd:
