@@ -32,7 +32,7 @@
   name_prefix = "app.BNPP.IACC_"
   timeout = "5s"
 
-{% if ansible_facts.services['mysqld'].state == "running" %}
+{% if ansible_facts.services['mysqld'] is defined %}
 
 [[inputs.exec]]
   commands = ["sh /etc/telegraf/scripts/mysql.sh"]
