@@ -1,21 +1,4 @@
 ---
-- name: Set templatized Telegraf configuration
-  template:
-    src: "{{ telegraf_configuration_template }}"
-    dest: "{{ telegraf_configuration_dir }}/telegraf.conf"
-    force: yes
-    backup: yes
-    owner: telegraf
-    group: telegraf
-    mode: 0744
-  when: telegraf_template_configuration
-  # If config changes, restart telegraf and confirm it remained running
-  notify:
-    - "restart telegraf"
-    - "pause"
-    - "check status"
-    - "assert running"
-
 - name: Test for sysvinit script
   stat:
     path: /etc/init.d/telegraf

@@ -26,13 +26,13 @@
   listen = ":9273"
   metric_version = 2
 
+{% if ansible_facts.services['mysqld'] is defined and {{ app_BNPP_IACC }} == yes %}
+
 [[inputs.exec]]
   commands = ["sh /etc/telegraf/scripts/count.sh"]
   data_format = "influx"
   name_prefix = "app.BNPP.IACC_"
   timeout = "5s"
-
-{% if ansible_facts.services['mysqld'] is defined %}
 
 [[inputs.exec]]
   commands = ["sh /etc/telegraf/scripts/mysql.sh"]
@@ -40,122 +40,79 @@
   name_prefix = "app.BNPP.IACC_"
   timeout = "50s"
 
-[[inputs.mysql]]
-
-  servers = ["qualdb:KplGLkk07L@tcp(127.0.0.1:3306)/"]
-  metric_version = 2
-  name_prefix = "db.BNPP.IACC_"
-## if the list is empty, then metrics are gathered from all databasee tables
-  table_schema_databases = ["sys"]
-## gather metrics from INFORMATION_SCHEMA.TABLES for databases provided above list
-  gather_table_schema = true
-  namedrop = ["mysql_table_schema_version"]
-## gather thread state counts from INFORMATION_SCHEMA.PROCESSLIST
-  gather_process_list = true
-  fieldpass = ["threads_connected","threads_running","innodb_rows*","data_free","com_select","com_insert","com_update","com_delete","slow_queries","threads_logging_slow_query","buffer_pool_size","uptime","open_tables","connections","buffer_pool_bytes_data","innodb_row_lock_current_waits", "lock_row_lock_time", "lock_deadlocks", "lock_row_lock_waits", "lock_timeouts", "max_used_connections", "max_connections", "threads_replication_master", "threads_idle", "buffer_pool_reads"]
-## gather metrics from INFORMATION_SCHEMA.INNODB_METRICS
-  gather_innodb_metrics = true
-
-[inputs.mysql.tagdrop]
-  table = ["[!s]*","s[a-t]*"]
-
 {% endif %}
 
 
-{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "6" %}
+{% if "{{ v3xml_incoming }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option1 v3xml"]
   timeout = "15s"
   data_format = "json"
+  name_prefix = "v3xml.incoming_"
+{% endif %}
 
+{% if "{{ v3xml_outgoing }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option2 v3xml"]
   timeout = "10s"
   data_format = "json"
+  name_prefix = "v3xml.outgoing_"
+{% endif %}
 
+{% if "{{ v3xml_bridge }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option3 v3xml"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "v3xml.bridge_"
+{% endif %}
 
+{% if "{{ kbmemusedv3xml1browser }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option4 kbmemusedv3xml1browser"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "kbmemusedv3xml1browser_"
+{% endif %}
 
+{% if "{{ kbmemusedaudioCapture }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option5 kbmemusedaudioCapture"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "kbmemusedaudioCapture_"
+{% endif %}
 
+{% if "{{ kbmemusedv3xml0browser }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option6 kbmemusedv3xml0browser"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "kbmemusedv3xml0browser_"
+{% endif %}
 
+{% if "{{ CXI_totalsessions }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option7 CXI_totalsessions"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "CXI.totalsessions_"
+{% endif %}
 
+{% if "{{ nbaudiocapture }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option8 nbaudiocapture"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "nbaudiocapture_"
+{% endif %}
 
+{% if "{{ nbconfsrv }}" %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option9 nbconfsrv"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "nbconfsrv_"
 {% endif %}
 
-[[inputs.net]]
-  fieldpass = ["bytes*", "packets*"]
-  interfaces = ["eth0", "eth1", "bond0"]
-  name_prefix = "net.BNPP.IACC_"
-
-[[inputs.netstat]]
-  fieldpass = ["tcp_close", "tcp_close_wait", "tcp_established", "tcp_fin_wait", "tcp_syn_recv", "tcp_syn_sent", "tcp_time_wait"]
-  name_prefix = "net.BNPP.IACC_"
-
-[[outputs.opentsdb]]
-  host = "opentsdb-write-qlf.mtx.svc.meshcore.net"
-  http_batch_size = 50
-  http_path = "/api/put"
-  port = 4242
-  separator = "_"
-  tagexclude = [""]
-
-[[inputs.cpu]]
-  collect_cpu_time = false
-  fieldpass = ["usage_idle", "usage_iowait"]
-  name_prefix = "sys.BNPP.IACC_"
-  percpu = false
-  report_active = false
-  totalcpu = true
-
-[[inputs.disk]]
-  fieldpass = ["inodes_total", "inodes_used", "total", "used_percent", "used", "free"]
-  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
-  name_prefix = "sys.BNPP.IACC_"
-
-[[inputs.diskio]]
-  fieldpass = ["io_time", "iops_in_progress", "read_bytes", "write_bytes"]
-  name_prefix = "sys.BNPP.IACC_"
-
-[[inputs.mem]]
-  fieldpass = ["buffered", "cached", "total", "used*", "available*"]
-  name_prefix = "sys.BNPP.IACC_"
-
-[[inputs.processes]]
-  fielddrop = ["blocked", "dead", "idle", "paging", "unknown"]
-  name_prefix = "sys.BNPP.IACC_"
-
-[[inputs.swap]]
-  fielddrop = ["in", "out", "free"]
-  name_prefix = "sys.BNPP.IACC_"
-
-[[inputs.system]]
-  fieldpass = ["uptime", "load1"]
-  name_prefix = "sys.BNPP.IACC_"
 

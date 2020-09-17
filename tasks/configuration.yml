@@ -1,0 +1,139 @@
+---
+- name: Set templatized Telegraf configuration
+  template:
+    src: "{{ telegraf_configuration_template }}"
+    dest: "{{ telegraf_configuration_dir }}/telegraf.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: telegraf_template_configuration
+  # If config changes, restart telegraf and confirm it remained running
+  notify:
+    - "restart telegraf"
+    - "pause"
+    - "check status"
+    - "assert running"
+
+- name: Set configuration telegraf.d file mysql.conf
+  template:
+    src: etc/telegraf/telegraf.d/mysql.conf.j2
+    dst: "{{ telegraf_configuration_d }}/mysql.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: my_sql_conf
+
+- name: Set configuration telegraf.d file net_net.conf
+  template:
+    src: etc/telegraf/telegraf.d/net_net.conf.j2
+    dst: "{{ telegraf_configuration_d }}/net_net.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: net_net_conf
+
+- name: Set configuration telegraf.d file net_netstat.conf
+  template:
+    src: etc/telegraf/telegraf.d/net_netstat.conf.j2
+    dst: "{{ telegraf_configuration_d }}/net_netstat.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: net_netstat_conf
+
+- name: Set configuration telegraf.d file opentsdb.conf
+  template:
+    src: etc/telegraf/telegraf.d/opentsdb.conf.j2
+    dst: "{{ telegraf_configuration_d }}/opentsdb.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: opentsdb_conf
+
+- name: Set configuration telegraf.d file sys_cpu.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_cpu.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_cpu.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_cpu_conf
+
+- name: Set configuration telegraf.d file sys_disk.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_disk.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_disk.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_disk_conf
+
+- name: Set configuration telegraf.d file sys_diskio.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_diskio.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_diskio.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_diskio_conf
+
+- name: Set configuration telegraf.d file sys_mem.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_mem.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_mem.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_mem_conf
+
+- name: Set configuration telegraf.d file sys_processes.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_processes.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_processes.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_processes_conf
+
+- name: Set configuration telegraf.d file sys_swap.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_swap.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_swap.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_swap_conf
+
+- name: Set configuration telegraf.d file sys_system.conf
+  template:
+    src: etc/telegraf/telegraf.d/sys_system.conf.j2
+    dst: "{{ telegraf_configuration_d }}/sys_system.conf"
+    force: yes
+    backup: yes
+    owner: telegraf
+    group: telegraf
+    mode: 0744
+  when: sys_system_conf
+
