@@ -21,7 +21,6 @@
 
 
 [[outputs.prometheus_client]]
-  ## Address to listen on.
   collectors_exclude = ["gocollector", "process"]
   listen = ":9273"
   metric_version = 2
@@ -43,7 +42,7 @@
 {% endif %}
 
 
-{% if "{{ v3xml_incoming }}" %}
+{% if v3xml_incoming %}
 [[inputs.exec]]
   commands = ["python /opt/python_metrics/main.py --option1 v3xml"]
   timeout = "15s"
