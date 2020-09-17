@@ -44,4 +44,4 @@
 - name: Read mysqld variable
   debug:
     msg: " Mysql is on host"
-  when: ansible_facts.services['mysqld'].state == "running"
+  when: ansible_facts.services['mysqld'] is defined
