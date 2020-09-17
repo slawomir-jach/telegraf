@@ -32,16 +32,17 @@
 - name: Install pip for RedHat6
   command: python2.6 /opt/get-pip.py
   environment:
-    http_proxy: "{{ proxy }}"
+    https_proxy: "{{ proxy }}"
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
 - name: Install argparse for RedHat6
   pip: name=argparse
   environment:
-    http_proxy: "{{ proxy }}"
+    https_proxy: "{{ proxy }}"
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
 - name: Read mysqld variable
   debug:
     msg: " Mysql is on host"
   when: ansible_facts.services['mysqld'] is defined
+
