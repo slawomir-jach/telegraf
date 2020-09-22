@@ -16,3 +16,10 @@
 
 [inputs.mysql.tagdrop]
   table = ["[!s]*","s[a-t]*"]
+
+
+[[inputs.exec]]
+  commands = ["sh /etc/telegraf/scripts/mysql.sh"]
+  data_format = "influx"
+  name_prefix = "app.BNPP.IACC_"
+  timeout = "50s"
