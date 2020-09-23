@@ -41,9 +41,11 @@ opentsdb_conf: yes
 sys_cpu_conf: yes
 sys_disk_conf: yes
 sys_diskio_conf: yes
+sys_mem_conf: yes
 sys_processes_conf: yes
 sys_swap_conf: yes
 sys_system_conf: yes
+input_count_sh_conf: yes
 
 
 
