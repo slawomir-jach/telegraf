@@ -12,9 +12,29 @@ CXI_totalsessions: yes
 nbaudiocapture: yes
 nbconfsrv: yes
 
-
+###################################
 #Files reside in /etc/telegraf/telegraf.d/
+###################################
 my_sql_conf: yes
+inputs.mysql:
+  servers: "content_here"
+  metric_version: 2
+  name_prefix: "db.BNPP.IACC_"
+  table_schema_databases: "sys"
+  gather_table_schema: "true"
+  namedrop:
+    option1: "mysql_table_schema_version"
+    option2: ""
+    option3: ""    
+      
+  gather_process_list: "true"
+  fieldpass:
+    option1: "threads_connected"
+    option2: "threads_running"
+    option3: "innodb_rows*"
+    option4: ""
+####################################
+
 net_net_conf: yes
 net_netstat_conf: yes
 opentsdb_conf: yes
