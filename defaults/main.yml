@@ -7,7 +7,7 @@ command_rhel: ["python /opt/python_metrics/main.py --option1 vxmem"]
 command_rhel8: ["python3 /opt/python_metrics/main.py --option1 vxmem"]
 
 #proxy url
-proxy: http://proxy-prod-scl.svc.meshcore.net:3128
+proxy_env: http://proxy-prod-scl.svc.meshcore.net:3128
 
 # Check installed packages
 package_installed:
