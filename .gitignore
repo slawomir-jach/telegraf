@@ -7,3 +7,4 @@ venv/
 playbooks/
 .idea/
 hosts
+jinja2

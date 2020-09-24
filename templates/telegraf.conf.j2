@@ -1,28 +1,101 @@
+[global_tags]
+
+  bulle = "BACK"
+  cbw_service = "mysql-contact"
+  chaine = "71"
+
+[agent]
+
+  hostname = ""
+  omit_hostname = false
+  interval = "60s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "30s"
+  flush_jitter = "0s"
+  logfile = "/var/log/telegraf/telegraf.log"
+  debug = true
+  quiet = false
+
+
 [[outputs.prometheus_client]]
-  ## Address to listen on.
-  listen = "127.0.0.1:9273"
+  collectors_exclude = ["gocollector", "process"]
+  listen = ":9273"
   metric_version = 2
 
 
-# Read metrics about cpu usage
-[[inputs.cpu]]
-  ## Whether to report per-cpu stats or not
-  percpu = true
-  ## Whether to report total system cpu stats or not
-  totalcpu = true
-  ## If true, collect raw CPU time metrics.
-  collect_cpu_time = false
-
-# Read metrics about memory usage
-[[inputs.mem]]
-
+{% if v3xml_incoming %}
 [[inputs.exec]]
-
-{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
-  commands = {{ command_rhel8 | to_json }}
-{% else %}
-  commands = {{ command_rhel | to_json }}
+  commands = ["python /opt/python_metrics/main.py --option1 v3xml"]
+  timeout = "15s"
+  data_format = "json"
+  name_prefix = "v3xml.incoming_"
 {% endif %}
 
+{% if "{{ v3xml_outgoing }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option2 v3xml"]
+  timeout = "10s"
+  data_format = "json"
+  name_prefix = "v3xml.outgoing_"
+{% endif %}
+
+{% if "{{ v3xml_bridge }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option3 v3xml"]
   timeout = "5s"
   data_format = "json"
+  name_prefix = "v3xml.bridge_"
+{% endif %}
+
+{% if "{{ kbmemusedv3xml1browser }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option4 kbmemusedv3xml1browser"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "kbmemusedv3xml1browser_"
+{% endif %}
+
+{% if "{{ kbmemusedaudioCapture }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option5 kbmemusedaudioCapture"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "kbmemusedaudioCapture_"
+{% endif %}
+
+{% if "{{ kbmemusedv3xml0browser }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option6 kbmemusedv3xml0browser"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "kbmemusedv3xml0browser_"
+{% endif %}
+
+{% if "{{ CXI_totalsessions }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option7 CXI_totalsessions"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "CXI.totalsessions_"
+{% endif %}
+
+{% if "{{ nbaudiocapture }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option8 nbaudiocapture"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "nbaudiocapture_"
+{% endif %}
+
+{% if "{{ nbconfsrv }}" %}
+[[inputs.exec]]
+  commands = ["python /opt/python_metrics/main.py --option9 nbconfsrv"]
+  timeout = "5s"
+  data_format = "json"
+  name_prefix = "nbconfsrv_"
+{% endif %}
+
+

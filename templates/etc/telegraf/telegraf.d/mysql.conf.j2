@@ -1,0 +1,28 @@
+[[inputs.mysql]]
+
+#  servers = ["qualdb:KplGLkk07L@tcp(127.0.0.1:3306)/"]
+  servers = ["{{ inputs.mysql[servers] }}"]
+  metric_version = {{inputs.mysql[metric_version]}}
+#  name_prefix = "db.BNPP.IACC_"
+  name_prefix = {{ inputs.mysql[name_prefix] }}
+  
+## if the list is empty, then metrics are gathered from all databasee tables
+  table_schema_databases = ["sys"]
+## gather metrics from INFORMATION_SCHEMA.TABLES for databases provided above list
+  gather_table_schema = true
+  namedrop = ["mysql_table_schema_version"]
+## gather thread state counts from INFORMATION_SCHEMA.PROCESSLIST
+  gather_process_list = true
+  fieldpass = ["threads_connected","threads_running","innodb_rows*","data_free","com_select","com_insert","com_update","com_delete","slow_queries","threads_logging_slow_query","buffer_pool_size","uptime","open_tables","connections","buffer_pool_bytes_data","innodb_row_lock_current_waits", "lock_row_lock_time", "lock_deadlocks", "lock_row_lock_waits", "lock_timeouts", "max_used_connections", "max_connections", "threads_replication_master", "threads_idle", "buffer_pool_reads"]
+## gather metrics from INFORMATION_SCHEMA.INNODB_METRICS
+  gather_innodb_metrics = true
+
+[inputs.mysql.tagdrop]
+  table = ["[!s]*","s[a-t]*"]
+
+
+[[inputs.exec]]
+  commands = ["sh /etc/telegraf/scripts/mysql.sh"]
+  data_format = "influx"
+  name_prefix = "app.BNPP.IACC_"
+  timeout = "50s"

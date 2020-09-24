@@ -46,13 +46,14 @@ telegraf_hostname:
 telegraf_omit_hostname: "false"
 telegraf_install_url:
 
+#for testing only
 telegraf_plugins_base:
   - name: mem
   - name: system
   - name: cpu
     options:
-      percpu: "true"
-      totalcpu: "true"
+      percpu: "false"
+      totalcpu: "false"
       fielddrop:
         - "time_*"
   - name: disk

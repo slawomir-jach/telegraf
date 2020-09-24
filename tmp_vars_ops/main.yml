@@ -1,0 +1,61 @@
+---
+
+#Metrics from bash script
+app_BNPP_IACC: yes
+v3xml_incoming: yes
+v3xml_outgoing: yes
+v3xml_bridge: yes
+kbmemusedv3xml1browser: yes
+kbmemusedaudioCapture: yes
+kbmemusedv3xml0browser: yes
+CXI_totalsessions: yes
+nbaudiocapture: yes
+nbconfsrv: yes
+
+###################################
+#Files reside in /etc/telegraf/telegraf.d/
+###################################
+my_sql_conf: yes
+inputs.mysql:
+  servers: "content_here"
+  metric_version: 2
+  name_prefix: "db.BNPP.IACC_"
+  table_schema_databases: "sys"
+  gather_table_schema: "true"
+  namedrop:
+    option1: "mysql_table_schema_version"
+    option2: ""
+    option3: ""    
+      
+  gather_process_list: "true"
+  fieldpass:
+    option1: "threads_connected"
+    option2: "threads_running"
+    option3: "innodb_rows*"
+    option4: ""
+####################################
+
+net_net_conf: yes
+net_netstat_conf: yes
+opentsdb_conf: yes
+sys_cpu_conf: yes
+sys_disk_conf: yes
+sys_diskio_conf: yes
+sys_mem_conf: yes
+sys_processes_conf: yes
+sys_swap_conf: yes
+sys_system_conf: yes
+input_count_sh_conf: yes
+
+
+
+
+#Test
+foo:
+  field1: one
+  field2: two
+
+#foo['field1']
+#foo.field1
+
+

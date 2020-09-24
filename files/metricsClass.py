@@ -50,7 +50,6 @@ class Metrics:
                 dct[kbName] = int(round(float(row.split(None, nfields)[8])))
                 return json.dumps(dct, indent=1)
 
-
     @staticmethod
     def app_list(txt=''):
 
@@ -67,7 +66,7 @@ class Metrics:
 
         for i in Metrics.app_list(direction):
             if i in Metrics.v3xml0(v3_xml0) and i in Metrics.v3xml0(v3_xml1):
-                print "find!"
+
                 pass
             else:
                 dict[i] = 0

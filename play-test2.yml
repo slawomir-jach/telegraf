@@ -1,0 +1,19 @@
+- hosts: six
+  become: yes
+  tasks:
+    - name: Gather the rpm package facts
+      package_facts:
+        manager: auto
+
+
+    - name: Print the rpm package facts
+      debug:
+        var: ansible_facts.packages['mysq-server'] 
+      ignore_errors: yes
+
+    - name: Check whether a package called foobar is installed
+      debug:
+        msg: "ppp"
+      when:  ansible_facts.packages['mysq-server'] is defined
+
+
