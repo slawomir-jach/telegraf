@@ -26,7 +26,7 @@
   metric_version = 2
 
 
-{% if {{ v3xml_incoming }} %}
+{% if "{{ v3xml_incoming }}" %}
 [[inputs.exec]]
   {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option1 v3xml"]
@@ -38,7 +38,7 @@
   name_prefix = "v3xml.incoming_"
 {% endif %}
 
-{% if {{ v3xml_outgoing }} %}
+{% if "{{ v3xml_outgoing }}" %}
 [[inputs.exec]]
   {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option2 v3xml"]
