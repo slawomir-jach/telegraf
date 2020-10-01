@@ -1,3 +1,18 @@
+
+{% if inputs_processes  %}
+
 [[inputs.processes]]
-  fielddrop = ["blocked", "dead", "idle", "paging", "unknown"]
-  name_prefix = "sys.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_processes_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = "{{ inputs_processes_body.name_prefix }}"
+
+{% endif %}
+
+#org sets
+#[[inputs.processes]]
+#  fielddrop = ["blocked", "dead", "idle", "paging", "unknown"]
+#  name_prefix = "sys.BNPP.IACC_"

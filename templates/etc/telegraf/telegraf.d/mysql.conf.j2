@@ -1,28 +1,43 @@
+
+
+{% if input_mysql_main  %}
 [[inputs.mysql]]
 
-#  servers = ["qualdb:KplGLkk07L@tcp(127.0.0.1:3306)/"]
-  servers = ["{{ inputs.mysql[servers] }}"]
-  metric_version = {{inputs.mysql[metric_version]}}
-#  name_prefix = "db.BNPP.IACC_"
-  name_prefix = {{ inputs.mysql[name_prefix] }}
-  
-## if the list is empty, then metrics are gathered from all databasee tables
-  table_schema_databases = ["sys"]
-## gather metrics from INFORMATION_SCHEMA.TABLES for databases provided above list
-  gather_table_schema = true
-  namedrop = ["mysql_table_schema_version"]
-## gather thread state counts from INFORMATION_SCHEMA.PROCESSLIST
-  gather_process_list = true
-  fieldpass = ["threads_connected","threads_running","innodb_rows*","data_free","com_select","com_insert","com_update","com_delete","slow_queries","threads_logging_slow_query","buffer_pool_size","uptime","open_tables","connections","buffer_pool_bytes_data","innodb_row_lock_current_waits", "lock_row_lock_time", "lock_deadlocks", "lock_row_lock_waits", "lock_timeouts", "max_used_connections", "max_connections", "threads_replication_master", "threads_idle", "buffer_pool_reads"]
-## gather metrics from INFORMATION_SCHEMA.INNODB_METRICS
-  gather_innodb_metrics = true
-
-[inputs.mysql.tagdrop]
-  table = ["[!s]*","s[a-t]*"]
+  servers = ["{{ inputs_mysql.servers }}"]
+  metric_version = {{inputs_mysql.metric_version}}
+  name_prefix = {{ inputs_mysql.name_prefix }}
+  table_schema_databases = ["{{ inputs_mysql.table_schema_databases }}"]
+  gather_table_schema = "{{ inputs_mysql.gather_table_schema }}"
+  gather_process_list = "{{ inputs_mysql.gather_process_list }}"
+  gather_innodb_metrics = "{{ inputs_mysql.gather_innodb_metrics }}"
+{% endif %}
 
 
+{% if mysql_fieldpass %}
+  fieldpass = [
+  {% for item, con in inputs_mysql.fieldpass.iteritems() if con == true  %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+{% endif %}
+
+{% if mysql_namedrop %}
+  namedrop = [
+  {% for item, con in inputs_mysql.namedrop.iteritems() if con == true  %}
+    "{{ item }}",
+  {% endfor %}
+    ]
+{% endif %}
+
+{% if input_exec_mysql  %}
 [[inputs.exec]]
-  commands = ["sh /etc/telegraf/scripts/mysql.sh"]
-  data_format = "influx"
-  name_prefix = "app.BNPP.IACC_"
-  timeout = "50s"
+  commands = ["{{ inputs_exec.commands }}"]
+  data_format = "{{ inputs_exec.data_format }}"
+  name_prefix = "{{ inputs_exec.name_prefix }}"
+  timeout = "{{ inputs_exec.timeout }}"
+{% endif %}
+
+{% if input_mysql_tagdrop  %}
+[inputs.mysql.tagdrop]
+  table = {{ inputs_mysql_tagdrop.table }}
+{% endif %}

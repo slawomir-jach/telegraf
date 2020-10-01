@@ -1,0 +1,58 @@
+---
+# vars file for test_telegraf
+telegraf_configuration_dir: /etc/telegraf
+telegraf_configuration_template: telegraf.conf.j2
+#########################################
+input_mysql_main: yes
+mysql_fieldpass: yes
+mysql_namedrop: yes
+inputs_mysql:
+  servers: "qualdb:KplGLkk07L@tcp(127.0.0.1:3306)/"
+  metric_version: 2
+  name_prefix: "db.BNPP.IACC_"
+  table_schema_databases: "sys"
+  gather_table_schema: "true"
+  gather_process_list: "true"
+  gather_innodb_metrics: "true"
+  namedrop:
+    "mysql_table_schema_version": true
+    "mysql_table2": true
+    "mysql_table3": true
+
+  fieldpass:
+    "threads_connected": true
+    "threads_running": true
+    "innodb_rows*": false
+    "data_free": true
+    "com_select": false
+    "com_insert": false
+    "com_update": false
+    "com_delete": false
+    "slow_queries": false
+    "threads_logging_slow_query": false
+    "buffer_pool_size": false
+    "uptime": false
+    "open_tables": false
+    "connections": false
+    "buffer_pool_bytes_data": false
+    "innodb_row_lock_current_waits": false
+    "lock_row_lock_time": false
+    "lock_deadlocks" : false
+    "lock_row_lock_waits": false
+    "lock_timeouts": false
+    "max_used_connections": false
+    "max_connections": false
+    "threads_replication_master": false
+    "threads_idle": false
+    "buffer_pool_reads": false
+
+input_exec_mysql: no
+inputs_exec:
+  commands: "sh /etc/telegraf/scripts/mysql.sh"
+  data_format: "influx"
+  name_prefix: "app.BNPP.IACC_"
+  timeout: "50s"
+
+input_mysql_tagdrop: no
+inputs_mysql_tagdrop:
+  table: '["[!s]*","s[a-t]*"]'

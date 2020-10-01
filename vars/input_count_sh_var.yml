@@ -1,0 +1,7 @@
+
+inputs_exec: yes
+inputs_exec_body:
+  commands: "sh /etc/telegraf/scripts/count.sh"
+  data_format: "influx"
+  name_prefix: "app.BNPP.IACC_"
+  timeout: "5s"

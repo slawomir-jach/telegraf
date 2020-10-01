@@ -1,0 +1,14 @@
+
+
+if inputs_net: yes
+inputs_net_body:
+  fieldpass:
+    "bytes": true
+    "packets": true
+
+  interfaces:
+    "eth0": true
+    "eth1": false
+    "bond0": false
+
+  name_prefix: "net.BNPP.IACC_"

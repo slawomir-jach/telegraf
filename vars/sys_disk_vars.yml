@@ -1,0 +1,21 @@
+inputs_disk: yes
+
+inputs_disk_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "inodes_total": true
+    "inodes_used": true
+    "total": true
+    "used_percent": true
+    "used": true
+    "free": true
+
+  ignore_fs:
+    "tmpfs": true
+    "devtmpfs": true
+    "devfs": true
+    "iso9660": true
+    "overlay": true
+    "aufs": true
+    "squashfs": true

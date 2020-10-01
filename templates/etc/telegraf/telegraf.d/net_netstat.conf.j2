@@ -1,3 +1,16 @@
-[[inputs.netstat]]
-  fieldpass = ["tcp_close", "tcp_close_wait", "tcp_established", "tcp_fin_wait", "tcp_syn_recv", "tcp_syn_sent", "tcp_time_wait"]
-  name_prefix = "net.BNPP.IACC_"
+
+{% if inputs_netstat  %}
+[[inputs.net]]
+  fieldpass = [
+  {% for item, con in inputs_netstats_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = {{ inputs_netstats_body.name_prefix }}
+{% endif %}
+
+#orig sets
+#[[inputs.netstat]]
+#  fieldpass = ["tcp_close", "tcp_close_wait", "tcp_established", "tcp_fin_wait", "tcp_syn_recv", "tcp_syn_sent", "tcp_time_wait"]
+#  name_prefix = "net.BNPP.IACC_"

@@ -1,0 +1,14 @@
+inputs_cpu: yes
+
+inputs_cpu_body:
+  collect_cpu_time: "false"
+  name_prefix: "sys.BNPP.IACC_"
+  percpu: "false"
+  report_active: "false"
+  totalcpu: "true"
+
+
+  fieldpass:
+    "usage_idle": true
+    "usage_iowait": true
+

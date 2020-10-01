@@ -1,7 +1,24 @@
+
+{% if inputs_cpu  %}
 [[inputs.cpu]]
-  collect_cpu_time = false
-  fieldpass = ["usage_idle", "usage_iowait"]
-  name_prefix = "sys.BNPP.IACC_"
-  percpu = false
-  report_active = false
-  totalcpu = true
+  fieldpass = [
+  {% for item, con in inputs_cpu_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+  collect_cpu_time = "{{ inputs_cpu_body.collect_cpu_time }}"
+  name_prefix = "{{ inputs_cpu_body.name_prefix }}"
+  percpu = "{{ inputs_cpu_body.percpu }}"
+  report_active = "{{ inputs_cpu_body.report_active }}"
+  totalcpu = "{{  inputs_cpu_body.totalcpu }}"
+  name_prefix = {{ inputs_net_body.name_prefix }}
+{% endif %}
+
+#orig sets
+#[[inputs.cpu]]
+#  collect_cpu_time = false
+#  fieldpass = ["usage_idle", "usage_iowait"]
+#  name_prefix = "sys.BNPP.IACC_"
+#  percpu = false
+#  report_active = false
+#  totalcpu = true

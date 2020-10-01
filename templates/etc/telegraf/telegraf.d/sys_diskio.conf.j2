@@ -1,3 +1,18 @@
+
+{% if inputs_diskio  %}
+
 [[inputs.diskio]]
-  fieldpass = ["io_time", "iops_in_progress", "read_bytes", "write_bytes"]
-  name_prefix = "sys.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_diskio_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = "{{ inputs_diskio_body.name_prefix }}"
+
+{% endif %}
+
+#orig sets
+#[[inputs.diskio]]
+#  fieldpass = ["io_time", "iops_in_progress", "read_bytes", "write_bytes"]
+#  name_prefix = "sys.BNPP.IACC_"

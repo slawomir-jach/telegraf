@@ -1,3 +1,18 @@
+
+{% if inputs_mem  %}
+
 [[inputs.mem]]
-  fieldpass = ["buffered", "cached", "total", "used*", "available*"]
-  name_prefix = "sys.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_mem_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = "{{ inputs_mem_body.name_prefix }}"
+
+{% endif %}
+
+#orig sets
+#[[inputs.mem]]
+#  fieldpass = ["buffered", "cached", "total", "used*", "available*"]
+#  name_prefix = "sys.BNPP.IACC_"
