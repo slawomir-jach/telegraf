@@ -28,11 +28,11 @@
 
 {% if "{{ v3xml_incoming }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option1 v3xml"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option1 v3xml"]
-  {% endif %}
+{% endif %}
   timeout = "15s"
   data_format = "json"
   name_prefix = "v3xml.incoming_"
@@ -40,11 +40,11 @@
 
 {% if "{{ v3xml_outgoing }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option2 v3xml"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option2 v3xml"]
-  {% endif %}
+{% endif %}
   timeout = "10s"
   data_format = "json"
   name_prefix = "v3xml.outgoing_"
@@ -52,11 +52,11 @@
 
 {% if "{{ v3xml_bridge }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option3 v3xml"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option3 v3xml"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "v3xml.bridge_"
@@ -64,11 +64,11 @@
 
 {% if "{{ kbmemusedv3xml1browser }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option4 kbmemusedv3xml1browser"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option4 kbmemusedv3xml1browser"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "kbmemusedv3xml1browser_"
@@ -76,11 +76,11 @@
 
 {% if "{{ kbmemusedaudioCapture }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option5 kbmemusedaudioCapture"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option5 kbmemusedaudioCapture"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "kbmemusedaudioCapture_"
@@ -88,11 +88,11 @@
 
 {% if "{{ kbmemusedv3xml0browser }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option6 kbmemusedv3xml0browser"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option6 kbmemusedv3xml0browser"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "kbmemusedv3xml0browser_"
@@ -100,11 +100,11 @@
 
 {% if "{{ CXI_totalsessions }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option7 CXI_totalsessions"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option7 CXI_totalsessions"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "CXI.totalsessions_"
@@ -112,11 +112,11 @@
 
 {% if "{{ nbaudiocapture }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option8 nbaudiocapture"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option8 nbaudiocapture"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "nbaudiocapture_"
@@ -124,11 +124,11 @@
 
 {% if "{{ nbconfsrv }}" %}
 [[inputs.exec]]
-  {% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
+{% if ansible_os_family == "RedHat" and ansible_distribution_major_version == "8" %}
   commands = ["python3 /opt/python_metrics/main.py --option9 nbconfsrv"]
-  {% else %}
+{% else %}
   commands = ["python /opt/python_metrics/main.py --option9 nbconfsrv"]
-  {% endif %}
+{% endif %}
   timeout = "5s"
   data_format = "json"
   name_prefix = "nbconfsrv_"
