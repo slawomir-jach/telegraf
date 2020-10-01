@@ -17,7 +17,7 @@ nbconfsrv: yes
 my_sql_conf: yes
 net_net_conf: yes
 net_netstat_conf: yes
-opentsdb_conf: yes
+opentsdb_conf: no
 sys_cpu_conf: yes
 sys_disk_conf: yes
 sys_diskio_conf: yes

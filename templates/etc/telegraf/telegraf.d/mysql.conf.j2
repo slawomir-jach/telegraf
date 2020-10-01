@@ -5,11 +5,11 @@
 
   servers = ["{{ inputs_mysql.servers }}"]
   metric_version = {{inputs_mysql.metric_version}}
-  name_prefix = {{ inputs_mysql.name_prefix }}
+  name_prefix = "{{ inputs_mysql.name_prefix }}"
   table_schema_databases = ["{{ inputs_mysql.table_schema_databases }}"]
-  gather_table_schema = "{{ inputs_mysql.gather_table_schema }}"
-  gather_process_list = "{{ inputs_mysql.gather_process_list }}"
-  gather_innodb_metrics = "{{ inputs_mysql.gather_innodb_metrics }}"
+  gather_table_schema = {{ inputs_mysql.gather_table_schema }}
+  gather_process_list = {{ inputs_mysql.gather_process_list }}
+  gather_innodb_metrics = {{ inputs_mysql.gather_innodb_metrics }}
 {% endif %}
 
 

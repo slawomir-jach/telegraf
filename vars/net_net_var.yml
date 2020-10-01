@@ -1,6 +1,6 @@
+---
+inputs_net: yes
 
-
-if inputs_net: yes
 inputs_net_body:
   fieldpass:
     "bytes": true

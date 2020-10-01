@@ -6,12 +6,12 @@
     "{{ item }}",
   {% endfor %}
   ]
-  collect_cpu_time = "{{ inputs_cpu_body.collect_cpu_time }}"
+  collect_cpu_time = {{ inputs_cpu_body.collect_cpu_time }}
   name_prefix = "{{ inputs_cpu_body.name_prefix }}"
-  percpu = "{{ inputs_cpu_body.percpu }}"
-  report_active = "{{ inputs_cpu_body.report_active }}"
-  totalcpu = "{{  inputs_cpu_body.totalcpu }}"
-  name_prefix = {{ inputs_net_body.name_prefix }}
+  percpu = {{ inputs_cpu_body.percpu }}
+  report_active = {{ inputs_cpu_body.report_active }}
+  totalcpu = {{ inputs_cpu_body.totalcpu }}
+
 {% endif %}
 
 #orig sets

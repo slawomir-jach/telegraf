@@ -2,9 +2,9 @@
 {% if inputs_exec  %}
 [[inputs.exec]]
   commands = ["{{ inputs_exec_body.commands }}"]
-  data_format = {{ inputs_exec_body.commands }}
-  name_prefix = {{ inputs_exec_body.name_prefix }}
-  timeout = {{ inputs_exec_body.timeout }}
+  data_format = "{{ inputs_exec_body.data_format }}"
+  name_prefix = "{{ inputs_exec_body.name_prefix }}"
+  timeout = "{{ inputs_exec_body.timeout }}"
 {% endif %}
 
 
