@@ -1,0 +1,9 @@
+inputs_swap: yes
+
+inputs_swap_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "in": true
+    "out": true
+    "free": true

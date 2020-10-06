@@ -1,0 +1,10 @@
+inputs_diskio: yes
+
+inputs_diskio_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "io_time": true
+    "iops_in_progress": true
+    "read_bytes": true
+    "write_bytes": true

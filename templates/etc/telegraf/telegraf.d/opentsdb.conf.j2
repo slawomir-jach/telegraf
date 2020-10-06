@@ -1,7 +1,10 @@
+
+{% if outputs_opentsdb  %}
 [[outputs.opentsdb]]
-  host = "opentsdb-write-qlf.mtx.svc.meshcore.net"
-  http_batch_size = 50
-  http_path = "/api/put"
-  port = 4242
-  separator = "_"
-  tagexclude = [""]
+  host = "{{ outputs_opentsdb_body.host }}"
+  http_batch_size = {{ outputs_opentsdb_body.http_batch_size }}
+  http_path = "{{ outputs_opentsdb_body.http_path }}"
+  port = {{ outputs_opentsdb_body.port }}
+  separator = "{{ outputs_opentsdb_body.separator }} "
+  tagexclude = "{{ outputs_opentsdb_body.tagexclude }} "
+{% endif %}

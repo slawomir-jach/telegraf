@@ -1,4 +1,24 @@
+
+{% if inputs_net  %}
 [[inputs.net]]
-  fieldpass = ["bytes*", "packets*"]
-  interfaces = ["eth0", "eth1", "bond0"]
-  name_prefix = "net.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_net_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  interfaces = [
+  {% for item, con in inputs_net_body.interfaces.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = "{{ inputs_net_body.name_prefix }}"
+{% endif %}
+
+
+# orig set
+#[[inputs.net]]
+#  fieldpass = ["bytes*", "packets*"]
+#  interfaces = ["eth0", "eth1", "bond0"]
+#  name_prefix = "net.BNPP.IACC_"

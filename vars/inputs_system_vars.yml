@@ -1,0 +1,8 @@
+inputs_system: yes
+
+inputs_system_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "uptime": true
+    "load1": true

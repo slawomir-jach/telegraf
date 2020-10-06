@@ -3,8 +3,16 @@
   vars_files:
     - defaults/main.yml
     - vars/main.yml
-    - tmp_vars_ops/main.yml
+
+
   tasks:
+    - name: include vars files
+      include_vars:
+        dir: vars
+        extensions:
+          - 'yaml'
+          - 'yml'
+
     - include: tasks/main.yml
   handlers:
     - include: handlers/main.yml

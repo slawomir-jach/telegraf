@@ -1,0 +1,11 @@
+inputs_mem: yes
+
+inputs_mem_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "buffered": true
+    "cached": true
+    "total": true
+    "used*": true
+    "available*": true

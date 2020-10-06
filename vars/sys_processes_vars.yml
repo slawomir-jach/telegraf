@@ -1,0 +1,11 @@
+inputs_processes: yes
+
+inputs_processes_body:
+  name_prefix: "sys.BNPP.IACC_"
+
+  fieldpass:
+    "blocked": true
+    "dead": true
+    "idle": true
+    "paging": true
+    "unknown": true

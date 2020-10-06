@@ -1,5 +1,15 @@
+
+{% if inputs_exec  %}
 [[inputs.exec]]
-  commands = ["sh /etc/telegraf/scripts/count.sh"]
-  data_format = "influx"
-  name_prefix = "app.BNPP.IACC_"
-  timeout = "5s"
+  commands = ["{{ inputs_exec_body.commands }}"]
+  data_format = "{{ inputs_exec_body.data_format }}"
+  name_prefix = "{{ inputs_exec_body.name_prefix }}"
+  timeout = "{{ inputs_exec_body.timeout }}"
+{% endif %}
+
+
+#[[inputs.exec]]
+#  commands = ["sh /etc/telegraf/scripts/count.sh"]
+#  data_format = "influx"
+#  name_prefix = "app.BNPP.IACC_"
+#  timeout = "5s"

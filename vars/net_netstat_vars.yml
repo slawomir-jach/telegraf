@@ -1,0 +1,13 @@
+inputs_netstat: yes
+
+inputs_netstats_body:
+  name_prefix: "net.BNPP.IACC_"
+
+  fieldpass:
+    "tcp_close": true
+    "tcp_close_wait": true
+    "tcp_established": true
+    "tcp_fin_wait": true
+    "tcp_syn_recv": true
+    "tcp_syn_sent": true
+    "tcp_time_wait": true

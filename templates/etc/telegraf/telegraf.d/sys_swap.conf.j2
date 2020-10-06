@@ -1,3 +1,18 @@
+
+{% if inputs_swap  %}
+
 [[inputs.swap]]
-  fielddrop = ["in", "out", "free"]
-  name_prefix = "sys.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_swap_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+
+  name_prefix = "{{ inputs_swap_body.name_prefix }}"
+
+{% endif %}
+
+#org sets
+#[[inputs.swap]]
+#  fielddrop = ["in", "out", "free"]
+#  name_prefix = "sys.BNPP.IACC_"

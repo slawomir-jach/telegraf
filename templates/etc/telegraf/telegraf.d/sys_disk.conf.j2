@@ -1,4 +1,17 @@
+
+{% if inputs_disk  %}
+
 [[inputs.disk]]
-  fieldpass = ["inodes_total", "inodes_used", "total", "used_percent", "used", "free"]
-  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
-  name_prefix = "sys.BNPP.IACC_"
+  fieldpass = [
+  {% for item, con in inputs_disk_body.fieldpass.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+  ignore_fs = [
+  {% for item, con in inputs_disk_body.ignore_fs.iteritems() if con == true %}
+    "{{ item }}",
+  {% endfor %}
+  ]
+  name_prefix = "{{ inputs_disk_body.name_prefix }}"
+
+{% endif %}
