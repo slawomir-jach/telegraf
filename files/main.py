@@ -4,8 +4,84 @@ import os
 import json
 import argparse
 import subprocess
-from vars import *
-from metricsClass import *
+import xml.etree.ElementTree as ET
+
+v3_ccxml = '/usr/bin/cxiSHMDump -d /ccxml0 | grep "CXI|" | sed -e "s/CXI|/ccxml/g"'
+v3_xml0 = '/usr/bin/v3xmlSHMDump -d /v3xml0 -f etc/ipc.shm  | grep mic5 | sed -e "s/VXML|mic5|/v3xml0./g"'
+v3_xml1 = '/usr/bin/v3xmlSHMDump -d /v3xml1 -f etc/ipc.shm  | grep mic5 | sed -e "s/VXML|mic5|/v3xml1./g"'
+nb_audio = 'echo  `/usr/bin/audioCaptureSurv -cfg /etc/audioCapture/audioCapture.cfg -b | cut -d ";" -f1|/usr/bin/tr -d " "` "nbaudiocapture"  ' 
+nb_confsrv = 'echo `/usr/bin/ConfSrvSurv -cfg /etc/ConferenceServer/ConfSrv.cfg  -conf|/bin/grep "Nb conference used"|/bin/cut -d":" -f2|/usr/bin/tr -d " "` "nbconfsrv" '
+
+class Metrics:
+
+    @staticmethod
+    def v3xml0(value=None):
+        dict_lo0 = {}
+        stream = os.popen(value).readlines()
+
+        for line in stream:
+            try:
+
+                value, metricsName = line.strip().split(None, 1)
+            except ValueError:
+                pass
+            dict_lo0[metricsName] = int(value)
+        return json.dumps(dict_lo0, indent=1)
+
+
+
+    @staticmethod
+    def v3xml(app, value, kbName):
+        dct = {}
+        ps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE).communicate()[0]
+        processes = ps.split('\n')
+        nfields = len(processes[0].split()) - 1
+        for row in processes[1:]:
+            if app in row and value in row:
+                 dct[kbName] = int(row.split(None, nfields)[4])
+                 return json.dumps(dct, indent=1)
+
+
+
+    @staticmethod
+    def audioCap(appSearch, value=None, kbName=None, sysapp=None):
+        dct = {}
+        ps = subprocess.Popen([sysapp, 'b', 'n 1'], stdout=subprocess.PIPE).communicate()[0]
+        processes = ps.split('\n')
+        nfields = len(processes[0].split()) - 1
+        for row in processes[1:]:
+            if appSearch in row and value in row:
+                dct[kbName] = int(round(float(row.split(None, nfields)[8])))
+                return json.dumps(dct, indent=1)
+
+    @staticmethod
+    def app_list(txt=''):
+
+        root = ET.parse('/etc/v3xml/applist.xml').getroot()
+        app = []
+        for type_tag in root.findall('apps/app'):
+            value = type_tag.get('id') + txt
+            app.append(value)
+        return app
+
+    @staticmethod
+    def loopadapt(direction=""):
+        dict = {}
+
+        for i in Metrics.app_list(direction):
+            if i in Metrics.v3xml0(v3_xml0) and i in Metrics.v3xml0(v3_xml1):
+
+                pass
+            else:
+                dict[i] = 0
+        return json.dumps(dict, indent=0)
+    
+
+
+
+
+
+
 
 parser = argparse.ArgumentParser()
 
